@@ -1,0 +1,112 @@
+/* aca reseteo todo pa q no queden margenes feos por defecto */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* le puse un fondo super oscuro pa q resalte la barra */
+    background-color: #0f172a; 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* la cajita donde va el menu */
+.barra-navegacion {
+    display: flex;
+    gap: 40px;
+    background-color: #1e293b;
+    padding: 20px 40px;
+    border-radius: 50px;
+    /* una sombrita morada pa q se vea re */
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+}
+
+/* esto es VITAL, tiene q ser relative pa q el tooltip se ubique respecto a este div y no a la pagina entera */
+.item-menu {
+    position: relative; 
+    display: flex;
+    justify-content: center;
+}
+
+.enlace-nav {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+/* cambia el color del texto cuando paso el mouse */
+.item-menu:hover .enlace-nav {
+    color: #a78bfa; 
+}
+
+/* --- ESTILO DEL TOOLTIP --- */
+.globo-tooltip {
+    /* absolute pa poder moverlo arriba del texto libremente */
+    position: absolute;
+    bottom: 150%; /* lo empuja pa q quede justo arriba del boton */
+    background-color: #8b5cf6;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap; /* pa q el texto no se rompa en dos lineas */
+    pointer-events: none; /* pa q el mouse no interactue con el globito sin querer */
+    
+    /* aca lo escondo inicialmente pq asi lo pide el ejercicio */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* el triangulito chiquito de abajo del tooltip */
+.globo-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%; /* lo pone abajo del todo */
+    left: 50%;
+    transform: translateX(-50%); /* lo centra bien al medio */
+    border-width: 6px;
+    border-style: solid;
+    /* dibuja el triangulo del mismo color morado */
+    border-color: #8b5cf6 transparent transparent transparent; 
+}
+
+
+/* --- ANIMACIONES AL PASAR EL MOUSE (HOVER) --- */
+
+/* 1. Animacion Fade-in (aparece suave) */
+.animacion-suave .globo-tooltip {
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.animacion-suave:hover .globo-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 2. Animacion Slide-in (viene de abajito) */
+.animacion-sube .globo-tooltip {
+    transform: translateY(15px); /* arranca un poquito mas abajo */
+}
+.animacion-sube:hover .globo-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* sube a su posicion normal */
+}
+
+/* 3. Animacion Scale-in (se hace grande) */
+.animacion-crece .globo-tooltip {
+    transform: scale(0.7); /* arranca chiquito */
+    transform-origin: bottom center; /* pa q crezca desde abajo hacia arriba */
+}
+.animacion-crece:hover .globo-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1); /* vuelve a su tamaño real */
+}
